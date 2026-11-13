@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
   CITIES, DURATIONS, FOOD, FOOD_CATS, ZONES, formatRub, freePcCount, isOccupied, seatPrice,
-  type City, type Club, type Duration, type DurationId, type FoodCat, type SeatPick, type Zone, type ZoneId,
+  type City, type Club, type DurationId, type FoodCat, type SeatPick, type ZoneId,
 } from "@/lib/pcmania";
 
 export const scrollTo = (id: string) =>
@@ -235,12 +235,12 @@ export function BookingSection(p: {
   };
   const busy = (i: number) => isOccupied(p.club.id, zone.id, i, p.date);
 
-  const Seat = ({ i, big }: { i: number; big?: boolean }) => {
+  const seat = (i: number, big?: boolean) => {
     const s = seatOf(i);
     const occ = busy(i);
     const on = selected.has(s.key);
     return (
-      <button disabled={occ} onClick={() => p.onToggle(s)} title={occ ? "Занято" : s.label}
+      <button key={i} disabled={occ} onClick={() => p.onToggle(s)} title={occ ? "Занято" : s.label}
         className={cn("flex flex-col items-center justify-center gap-1 rounded-lg border text-xs font-bold transition",
           big ? "min-h-28 p-4 text-sm" : "aspect-square",
           occ && "cursor-not-allowed border-border bg-muted text-muted-foreground/50 line-through",
@@ -325,16 +325,16 @@ export function BookingSection(p: {
                             Вся будка ({free.length})
                           </button>
                         </div>
-                        <div className="grid grid-cols-5 gap-2">{idx.map((i) => <Seat key={i} i={i} />)}</div>
+                        <div className="grid grid-cols-5 gap-2">{idx.map((i) => seat(i))}</div>
                       </div>
                     );
                   })}
                 </div>
               ) : zone.kind === "room" ? (
-                <div className="grid gap-3 sm:grid-cols-3">{Array.from({ length: zone.units }, (_, i) => <Seat key={i} i={i} big />)}</div>
+                <div className="grid gap-3 sm:grid-cols-3">{Array.from({ length: zone.units }, (_, i) => seat(i, true))}</div>
               ) : (
                 <div className={cn("grid gap-2", zone.id === "elite" ? "grid-cols-4 sm:grid-cols-6" : "grid-cols-4 sm:grid-cols-8")}>
-                  {Array.from({ length: zone.units }, (_, i) => <Seat key={i} i={i} />)}
+                  {Array.from({ length: zone.units }, (_, i) => seat(i))}
                 </div>
               )}
             </div>
@@ -412,4 +412,3 @@ export function KitchenSection({ cat, onCat, cart, onQty }: { cat: FoodCat; onCa
   );
 }
 
-export type { Duration, Zone };
