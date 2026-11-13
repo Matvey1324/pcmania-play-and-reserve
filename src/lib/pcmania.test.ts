@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { calcTotals, DURATIONS, isValidPromo, seatPrice, ZONES } from "./pcmania";
+import { calcTotals, formatUah, DURATIONS, isValidPromo, seatPrice, ZONES } from "./pcmania";
 
 const zone = (id: string) => ZONES.find((z) => z.id === id)!;
 const dur = (id: string) => DURATIONS.find((d) => d.id === id)!;
@@ -15,8 +15,14 @@ describe("PCMANIA pricing", () => {
     expect(isValidPromo(" pcmania ")).toBe(true);
     expect(isValidPromo("PCMANIA20")).toBe(false);
   });
+  it("hourly rates are 100 / 160 / 250 ₴ for Стандарт / VIP / Elite", () => {
+    expect([zone("standard").rate, zone("vip").rate, zone("elite").rate]).toEqual([100, 160, 250]);
+  });
+  it("prices are shown in hryvnia", () => {
+    expect(formatUah(1500)).toContain("₴");
+  });
   it("seat price scales with duration", () => {
-    expect(seatPrice(zone("standard"), dur("1h"))).toBe(150);
-    expect(seatPrice(zone("standard"), dur("3h"))).toBe(405);
+    expect(seatPrice(zone("standard"), dur("1h"))).toBe(100);
+    expect(seatPrice(zone("standard"), dur("3h"))).toBe(270);
   });
 });

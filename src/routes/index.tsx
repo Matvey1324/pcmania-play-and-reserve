@@ -12,7 +12,7 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "PCMANIA — сеть компьютерных клубов | Бронь мест онлайн" },
-      { name: "description", content: "Бронируй ПК, VIP-будки и Lounge-комнаты в клубах PCMANIA в Москве, СПб и Казани. RTX 4090, еда к месту, промокоды." },
+      { name: "description", content: "Бронируй ПК, VIP-будки и Lounge-комнаты в клубах PCMANIA в Киеве, Львове, Днепре, Одессе и Кривом Роге. RTX 4090, еда к месту, промокоды." },
       { property: "og:title", content: "PCMANIA — твоя игровая арена" },
       { property: "og:description", content: "Бронируй места для себя и друзей в один клик в клубах PCMANIA." },
       { property: "og:type", content: "website" },
@@ -23,7 +23,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const [city, setCity] = useState<City>("Москва");
+  const [city, setCity] = useState<City>("Киев");
   const clubs = useMemo(() => CLUBS.filter((c) => c.city === city), [city]);
   const [clubId, setClubId] = useState(clubs[0]!.id);
   const club = clubs.find((c) => c.id === clubId) ?? clubs[0]!;
@@ -48,7 +48,7 @@ function Index() {
   const [profileOpen, setProfileOpen] = useState(false);
   const [confirmed, setConfirmed] = useState<Booking | null>(null);
   const [bookings, setBookings] = useState<Booking[]>([]);
-  const [bonus, setBonus] = useState(450);
+  const [bonus, setBonus] = useState(300);
 
   const duration = DURATIONS.find((d) => d.id === durationId)!;
   const zoneOf = (id: ZoneId) => ZONES.find((z) => z.id === id)!;
@@ -127,8 +127,8 @@ function Index() {
       <footer className="border-t border-border">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-8 text-sm text-muted-foreground">
           <span className="font-display font-black text-foreground">PC<span className="text-neon">MANIA</span></span>
-          <span>Москва · Санкт-Петербург · Казань · 24/7</span>
-          <span>+7 (800) 555-13-37</span>
+          <span>Киев · Львов · Днепр · Одесса · Кривой Рог · 24/7</span>
+          <span>+38 (044) 555-13-37</span>
         </div>
       </footer>
 

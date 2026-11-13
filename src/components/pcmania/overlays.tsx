@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Stepper } from "./sections";
 import { cn } from "@/lib/utils";
-import { formatRub, qrMatrix, type Booking, type Totals } from "@/lib/pcmania";
+import { formatUah, qrMatrix, type Booking, type Totals } from "@/lib/pcmania";
 
 export function QrTicket({ code, size = 180 }: { code: string; size?: number }) {
   const m = qrMatrix(code);
@@ -49,7 +49,7 @@ export function CheckoutSheet(p: {
               <div className="space-y-2">{p.seats.map((s) => (
                 <div key={s.key} className="flex items-center justify-between gap-2 rounded-lg bg-secondary px-3 py-2 text-sm">
                   <div><b>{s.title}</b><div className="text-xs text-muted-foreground">{s.sub}</div></div>
-                  <div className="flex items-center gap-2 font-semibold">{formatRub(s.price)}
+                  <div className="flex items-center gap-2 font-semibold">{formatUah(s.price)}
                     <button aria-label="Удалить место" onClick={() => p.onRemoveSeat(s.key)} className="text-muted-foreground hover:text-destructive"><Trash2 className="size-4" /></button>
                   </div>
                 </div>))}
@@ -61,7 +61,7 @@ export function CheckoutSheet(p: {
             {p.food.length === 0 ? <p className="text-sm text-muted-foreground">Пока ничего — загляни в «Кухню и бар»</p> : (
               <div className="space-y-2">{p.food.map((f) => (
                 <div key={f.id} className="flex items-center justify-between gap-2 rounded-lg bg-secondary px-3 py-2 text-sm">
-                  <div className="min-w-0"><b className="block truncate">{f.name}</b><span className="text-xs text-muted-foreground">{formatRub(f.price * f.qty)}</span></div>
+                  <div className="min-w-0"><b className="block truncate">{f.name}</b><span className="text-xs text-muted-foreground">{formatUah(f.price * f.qty)}</span></div>
                   <Stepper value={f.qty} onChange={(n) => p.onQty(f.id, n)} max={20} />
                 </div>))}
               </div>
@@ -88,12 +88,12 @@ export function CheckoutSheet(p: {
           </div>
         </div>
         <div className="sticky bottom-0 space-y-2 border-t border-border bg-card p-5 text-sm">
-          <Row l="Места" v={formatRub(p.totals.seats)} />
-          <Row l="Еда и напитки" v={formatRub(p.totals.food)} />
-          {p.totals.discount > 0 && <Row l="Скидка по промокоду" v={`−${formatRub(p.totals.discount)}`} cls="text-success" />}
+          <Row l="Места" v={formatUah(p.totals.seats)} />
+          <Row l="Еда и напитки" v={formatUah(p.totals.food)} />
+          {p.totals.discount > 0 && <Row l="Скидка по промокоду" v={`−${formatUah(p.totals.discount)}`} cls="text-success" />}
           <div className="flex items-baseline justify-between pt-2">
             <span className="font-bold">К оплате</span>
-            <span className="font-display text-2xl font-black text-neon">{formatRub(p.totals.total)}</span>
+            <span className="font-display text-2xl font-black text-neon">{formatUah(p.totals.total)}</span>
           </div>
           <Button variant="neon" className="h-12 w-full text-base" disabled={!p.seats.length} onClick={p.onPay}>Оплатить и забронировать</Button>
         </div>
@@ -114,7 +114,7 @@ function BookingDetails({ b }: { b: Booking }) {
       <Row l="Время" v={b.duration} />
       <Row l="Места" v={b.seats.join(", ")} />
       {b.food.length > 0 && <Row l="Еда" v={b.food.map((f) => `${f.name} ×${f.qty}`).join(", ")} />}
-      <div className="flex justify-between pt-1 font-bold"><span>Оплачено</span><span className="text-primary">{formatRub(b.total)}</span></div>
+      <div className="flex justify-between pt-1 font-bold"><span>Оплачено</span><span className="text-primary">{formatUah(b.total)}</span></div>
     </div>
   );
 }
@@ -165,7 +165,7 @@ export function ProfileDialog({ open, onOpenChange, bonus, bookings, onBook }: {
           <div className="rounded-xl border border-primary/40 bg-primary/10 p-4">
             <div className="text-xs text-muted-foreground">Бонусный баланс</div>
             <div className="font-display text-2xl font-black text-primary">{bonus} Б</div>
-            <div className="text-xs text-muted-foreground">1 бонус = 1 ₽</div>
+            <div className="text-xs text-muted-foreground">1 бонус = 1 ₴</div>
           </div>
           <div className="rounded-xl border border-border bg-secondary p-4">
             <div className="text-xs text-muted-foreground">Всего броней</div>
@@ -195,7 +195,7 @@ export function ProfileDialog({ open, onOpenChange, bonus, bookings, onBook }: {
             <h4 className="mb-2 text-sm font-bold uppercase text-muted-foreground">История</h4>
             <div className="space-y-2">{history.map((b) => (
               <div key={b.id} className="flex justify-between rounded-lg bg-secondary px-3 py-2 text-sm">
-                <span><b>{b.code}</b> · {b.clubName}</span><span className="font-semibold">{formatRub(b.total)}</span>
+                <span><b>{b.code}</b> · {b.clubName}</span><span className="font-semibold">{formatUah(b.total)}</span>
               </div>))}
             </div>
           </div>
