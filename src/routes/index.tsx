@@ -25,15 +25,15 @@ export const Route = createFileRoute("/")({
 function Index() {
   const [city, setCity] = useState<City>("Москва");
   const clubs = useMemo(() => CLUBS.filter((c) => c.city === city), [city]);
-  const [clubId, setClubId] = useState(clubs[0].id);
-  const club = clubs.find((c) => c.id === clubId) ?? clubs[0];
+  const [clubId, setClubId] = useState(clubs[0]!.id);
+  const club = clubs.find((c) => c.id === clubId) ?? clubs[0]!;
 
   const [dates, setDates] = useState<{ value: string; label: string }[]>([{ value: "today", label: "Сегодня" }]);
   const [date, setDate] = useState("today");
   useEffect(() => {
     const d = nextDays();
     setDates(d);
-    setDate(d[0].value);
+    setDate(d[0]!.value);
   }, []);
   const dateLabel = dates.find((d) => d.value === date)?.label ?? "Сегодня";
 
