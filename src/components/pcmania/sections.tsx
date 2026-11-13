@@ -7,7 +7,7 @@ import heroImg from "@/assets/pcmania-hero.jpg";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
-  CITIES, DURATIONS, FOOD, FOOD_CATS, ZONES, formatRub, freePcCount, isOccupied, seatPrice,
+  CITIES, DURATIONS, FOOD, FOOD_CATS, ZONES, formatUah, freePcCount, isOccupied, seatPrice,
   type City, type Club, type DurationId, type FoodCat, type SeatPick, type ZoneId,
 } from "@/lib/pcmania";
 
@@ -51,7 +51,7 @@ export function Header(p: {
         <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="font-display text-xl font-black tracking-tight">
           PC<span className="text-neon">MANIA</span>
         </button>
-        <div className="relative ml-1 w-28">
+        <div className="relative ml-1 w-36">
           <MapPin className="pointer-events-none absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-primary" />
           <select aria-label="Город" value={p.city} onChange={(e) => p.onCity(e.target.value as City)}
             className="h-9 w-full appearance-none rounded-lg border border-input bg-secondary pl-8 pr-2 text-sm font-semibold outline-none focus:border-primary">
@@ -91,7 +91,7 @@ export function Hero(p: {
       <div className="absolute inset-0 bg-hero-fade" />
       <div className="relative mx-auto max-w-7xl px-4 pb-16 pt-24 md:pt-36">
         <span className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-background/60 px-3 py-1 text-xs font-bold uppercase tracking-widest text-primary">
-          <Flame className="size-3.5" /> Открыто 24/7 · 12 клубов
+          <Flame className="size-3.5" /> Открыто 24/7 · 16 клубов
         </span>
         <h1 className="mt-6 max-w-4xl text-4xl font-black uppercase leading-[1.05] md:text-6xl">
           Твоя игровая <span className="text-neon">арена.</span>
@@ -158,7 +158,7 @@ export function ClubSection({ clubs, clubId, onClub, city }: { clubs: Club[]; cl
                   <div>
                     <h3 className={cn("text-base font-bold", on && "text-primary")}>{c.name}</h3>
                     <p className="mt-1 text-sm text-muted-foreground">{c.address}</p>
-                    <p className="mt-2 inline-flex items-center gap-1.5 text-sm"><TrainFront className="size-4 text-accent" /> м. {c.metro}</p>
+                    <p className="mt-2 inline-flex items-center gap-1.5 text-sm">{c.hasMetro ? <TrainFront className="size-4 text-accent" /> : <MapPin className="size-4 text-accent" />} {c.hasMetro ? `м. ${c.location}` : c.location}</p>
                   </div>
                   <div className="text-right">
                     <div className="font-display text-2xl font-black text-success">{free}</div>
@@ -193,7 +193,7 @@ export function ClubSection({ clubs, clubId, onClub, city }: { clubs: Club[]; cl
                   <circle cx={c.x} cy={c.y} r="3.5" fill="var(--background)" />
                   <text x={c.x} y={c.y - 22} textAnchor="middle" fontSize={on ? 13 : 11} fontWeight="700"
                     fill={on ? "var(--primary)" : "var(--muted-foreground)"} style={{ fontFamily: "var(--font-display)" }}>
-                    {c.metro}
+                    {c.name.replace("PCMANIA ", "")}
                   </text>
                 </g>
               );
@@ -202,7 +202,7 @@ export function ClubSection({ clubs, clubId, onClub, city }: { clubs: Club[]; cl
           <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between gap-3 rounded-xl border border-border bg-card/90 p-3 backdrop-blur">
             <div>
               <div className="text-sm font-bold">{active.name}</div>
-              <div className="text-xs text-muted-foreground">{active.address} · м. {active.metro}</div>
+              <div className="text-xs text-muted-foreground">{active.address} · {active.hasMetro ? `м. ${active.location}` : active.location}</div>
             </div>
             <Button variant="neon" size="sm" onClick={() => scrollTo("booking")}>Бронировать</Button>
           </div>
@@ -248,7 +248,7 @@ export function BookingSection(p: {
           on && "border-primary bg-neon text-primary-foreground shadow-glow")}>
         {big ? <Gamepad2 className="size-6" /> : <Monitor className="size-4" />}
         <span>{zone.kind === "room" ? `№${i + 1}` : zone.id === "vip" ? (i % 5) + 1 : s.label}</span>
-        {big && <span className="text-[11px] font-medium opacity-80">{occ ? "Занято" : formatRub(seatPrice(zone, duration))}</span>}
+        {big && <span className="text-[11px] font-medium opacity-80">{occ ? "Занято" : formatUah(seatPrice(zone, duration))}</span>}
       </button>
     );
   };
@@ -276,7 +276,7 @@ export function BookingSection(p: {
                 <div className="flex flex-wrap items-baseline gap-x-3">
                   <h3 className="text-xl font-black">{zone.name}</h3>
                   <span className="text-sm text-muted-foreground">{zone.tagline}</span>
-                  <span className="ml-auto font-display text-lg font-black text-primary">{formatRub(zone.rate)}<span className="text-xs text-muted-foreground"> / час{zone.kind === "room" ? " за комнату" : ""}</span></span>
+                  <span className="ml-auto font-display text-lg font-black text-primary">{formatUah(zone.rate)}<span className="text-xs text-muted-foreground"> / час{zone.kind === "room" ? " за комнату" : ""}</span></span>
                 </div>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {zone.specs.map((s) => (
@@ -353,7 +353,7 @@ export function BookingSection(p: {
                 return (
                   <div key={s.key} className="flex items-center justify-between rounded-lg bg-secondary px-3 py-2 text-sm">
                     <span><b>{s.label}</b> <span className="text-muted-foreground">· {z.name}</span></span>
-                    <span className="flex items-center gap-2 font-semibold">{formatRub(seatPrice(z, duration))}
+                    <span className="flex items-center gap-2 font-semibold">{formatUah(seatPrice(z, duration))}
                       <button aria-label="Убрать" onClick={() => p.onRemove(s.key)} className="text-muted-foreground hover:text-destructive"><X className="size-4" /></button>
                     </span>
                   </div>
@@ -362,7 +362,7 @@ export function BookingSection(p: {
             </div>
             <div className="mt-5 flex items-baseline justify-between border-t border-border pt-4">
               <span className="text-sm text-muted-foreground">Итого за места</span>
-              <span className="font-display text-2xl font-black text-neon">{formatRub(total)}</span>
+              <span className="font-display text-2xl font-black text-neon">{formatUah(total)}</span>
             </div>
             <Button variant="neon" className="mt-4 h-12 w-full text-base" disabled={!p.seats.length} onClick={p.onCheckout}>Перейти к оплате</Button>
             <Button variant="neonOutline" className="mt-2 h-10 w-full" onClick={() => scrollTo("kitchen")}><Pizza /> Добавить еду к брони</Button>
@@ -399,7 +399,7 @@ export function KitchenSection({ cat, onCat, cart, onQty }: { cat: FoodCat; onCa
               <h3 className="text-base font-bold">{f.name}</h3>
               <p className="mt-1 flex-1 text-sm text-muted-foreground">{f.desc}</p>
               <div className="mt-4 flex items-center justify-between gap-2">
-                <span className="font-display text-lg font-black">{formatRub(f.price)}</span>
+                <span className="font-display text-lg font-black">{formatUah(f.price)}</span>
                 {q ? <Stepper value={q} onChange={(n) => onQty(f.id, n)} max={20} /> : (
                   <Button variant="neon" size="sm" onClick={() => onQty(f.id, 1)}><Plus /> Добавить к брони</Button>
                 )}
