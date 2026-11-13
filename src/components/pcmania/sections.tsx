@@ -59,7 +59,7 @@ export function Header(p: {
           </select>
         </div>
         <nav className="ml-4 hidden items-center gap-6 text-sm font-semibold text-muted-foreground lg:flex">
-          {[["clubs", "Клубы"], ["booking", "Бронь мест"], ["kitchen", "Кухня и бар"]].map(([id, l]) => (
+          {([["clubs", "Клубы"], ["booking", "Бронь мест"], ["kitchen", "Кухня и бар"]] as const).map(([id, l]) => (
             <button key={id} onClick={() => scrollTo(id)} className="transition hover:text-primary">{l}</button>
           ))}
         </nav>
@@ -141,7 +141,7 @@ export function Stepper({ value, onChange, min = 0, max = 99 }: { value: number;
 
 /* ───────────── Clubs + map ───────────── */
 export function ClubSection({ clubs, clubId, onClub, city }: { clubs: Club[]; clubId: string; onClub: (id: string) => void; city: City }) {
-  const active = clubs.find((c) => c.id === clubId) ?? clubs[0];
+  const active = clubs.find((c) => c.id === clubId) ?? clubs[0]!;
   return (
     <section id="clubs" className="mx-auto max-w-7xl scroll-mt-20 px-4 py-20">
       <SectionTitle kicker={`Город: ${city}`} title="Выбор клуба" />

@@ -165,7 +165,7 @@ export function qrMatrix(code: string, size = 25): boolean[][] {
         if (px < 0 || py < 0 || px >= size || py >= size) continue;
         const ring = x === 0 || x === 6 || y === 0 || y === 6;
         const core = x >= 2 && x <= 4 && y >= 2 && y <= 4;
-        m[py][px] = x >= 0 && x <= 6 && y >= 0 && y <= 6 && (ring || core);
+        m[py]![px] = x >= 0 && x <= 6 && y >= 0 && y <= 6 && (ring || core);
       }
   };
   finder(0, 0);
