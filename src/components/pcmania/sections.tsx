@@ -333,7 +333,7 @@ export function BookingSection(p: {
               ) : zone.kind === "room" ? (
                 <div className="grid gap-3 sm:grid-cols-3">{Array.from({ length: zone.units }, (_, i) => seat(i, true))}</div>
               ) : (
-                <div className={cn("grid gap-2", zone.id === "elite" ? "grid-cols-4 sm:grid-cols-6" : "grid-cols-4 sm:grid-cols-8")}>
+                <div className={cn("grid gap-2", zone.id === "elite" ? "grid-cols-4 sm:grid-cols-6 lg:max-w-xl" : "grid-cols-4 sm:grid-cols-8")}>
                   {Array.from({ length: zone.units }, (_, i) => seat(i))}
                 </div>
               )}
