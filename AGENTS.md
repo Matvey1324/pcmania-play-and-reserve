@@ -28,3 +28,6 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+- App is a single page (`src/routes/index.tsx`) holding all state in useState; sections live in `src/components/pcmania/`, data and price math in `src/lib/pcmania.ts` — the brief requires no backend and minimal files.
