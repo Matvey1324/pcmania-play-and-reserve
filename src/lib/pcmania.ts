@@ -16,20 +16,20 @@ export interface Club {
 
 export const CLUBS: Club[] = [
   { id: "kyiv-1", city: "Киев", name: "PCMANIA Крещатик", address: "ул. Крещатик, 22", location: "Майдан Независимости", hasMetro: true, totalPc: 64, x: 250, y: 175 },
-  { id: "kyiv-2", city: "Киев", name: "PCMANIA Позняки", address: "пр-т Петра Григоренко, 28", location: "Позняки", hasMetro: true, totalPc: 56, x: 400, y: 290 },
+  { id: "kyiv-2", city: "Киев", name: "PCMANIA Позняки", address: "пр-т Петра Григоренко, 28", location: "Позняки", hasMetro: true, totalPc: 56, x: 400, y: 245 },
   { id: "kyiv-3", city: "Киев", name: "PCMANIA Оболонь", address: "Оболонский пр-т, 1Б", location: "Оболонь", hasMetro: true, totalPc: 48, x: 280, y: 55 },
   { id: "kyiv-4", city: "Киев", name: "PCMANIA Политех", address: "пр-т Берестейский, 37", location: "Политехнический институт", hasMetro: true, totalPc: 52, x: 120, y: 200 },
   { id: "lviv-1", city: "Львов", name: "PCMANIA Центр", address: "пр-т Свободы, 15", location: "Галицкий р-н", hasMetro: false, totalPc: 50, x: 230, y: 150 },
-  { id: "lviv-2", city: "Львов", name: "PCMANIA Сыхов", address: "пр-т Червоной Калины, 62", location: "Сыховский р-н", hasMetro: false, totalPc: 44, x: 370, y: 300 },
+  { id: "lviv-2", city: "Львов", name: "PCMANIA Сыхов", address: "пр-т Червоной Калины, 62", location: "Сыховский р-н", hasMetro: false, totalPc: 44, x: 370, y: 245 },
   { id: "lviv-3", city: "Львов", name: "PCMANIA Форум", address: "ул. Под Дубом, 7Б", location: "Шевченковский р-н", hasMetro: false, totalPc: 40, x: 300, y: 70 },
   { id: "dnipro-1", city: "Днепр", name: "PCMANIA Мост-Сити", address: "ул. Королевы Елизаветы II, 2", location: "Центр", hasMetro: false, totalPc: 60, x: 230, y: 130 },
-  { id: "dnipro-2", city: "Днепр", name: "PCMANIA Победа", address: "пр-т Героев, 11Л", location: "ж/м Победа", hasMetro: false, totalPc: 46, x: 120, y: 290 },
+  { id: "dnipro-2", city: "Днепр", name: "PCMANIA Победа", address: "пр-т Героев, 11Л", location: "ж/м Победа", hasMetro: false, totalPc: 46, x: 120, y: 245 },
   { id: "dnipro-3", city: "Днепр", name: "PCMANIA Гагарина", address: "пр-т Науки, 24", location: "Соборный р-н", hasMetro: false, totalPc: 42, x: 360, y: 220 },
   { id: "odesa-1", city: "Одесса", name: "PCMANIA Дерибасовская", address: "ул. Дерибасовская, 14", location: "Приморский р-н", hasMetro: false, totalPc: 58, x: 330, y: 90 },
   { id: "odesa-2", city: "Одесса", name: "PCMANIA Аркадия", address: "Аркадийская аллея, 1", location: "Аркадия", hasMetro: false, totalPc: 48, x: 390, y: 230 },
-  { id: "odesa-3", city: "Одесса", name: "PCMANIA Таирова", address: "пр-т Академика Глушко, 14", location: "пос. Таирова", hasMetro: false, totalPc: 44, x: 170, y: 300 },
+  { id: "odesa-3", city: "Одесса", name: "PCMANIA Таирова", address: "пр-т Академика Глушко, 14", location: "пос. Таирова", hasMetro: false, totalPc: 44, x: 170, y: 245 },
   { id: "kr-1", city: "Кривой Рог", name: "PCMANIA 95-й квартал", address: "пр-т Мира, 28", location: "95-й квартал", hasMetro: false, totalPc: 46, x: 220, y: 110 },
-  { id: "kr-2", city: "Кривой Рог", name: "PCMANIA Солнечный", address: "мкр-н Солнечный, 35А", location: "Солнечный", hasMetro: false, totalPc: 40, x: 380, y: 280 },
+  { id: "kr-2", city: "Кривой Рог", name: "PCMANIA Солнечный", address: "мкр-н Солнечный, 35А", location: "Солнечный", hasMetro: false, totalPc: 40, x: 380, y: 245 },
   { id: "kr-3", city: "Кривой Рог", name: "PCMANIA Соцгород", address: "ул. Соборности, 29", location: "Соцгород", hasMetro: false, totalPc: 38, x: 130, y: 250 },
 ];
 
